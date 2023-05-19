@@ -1,0 +1,15 @@
+["sg15_2022.02.06_upf"]
+git-tree-sha1 = "afe295f4adcdd3a7550c3056007bbef516e7eb60"
+lazy = true
+
+    [["sg15_2022.02.06_upf".download]]
+    sha256 = "d6a02fa6d8f0e8f3de01be1b32582186738c8bf7fcd675e1d7d71c38ea2df691"
+    url = "https://github.com/JuliaMolSim/PseudoLibrary/raw/main/artifacts/sg15_2022.02.06_upf.tar.gz"
+
+["pd_nc_sr_pbe_standard_0.4.1_upf"]
+git-tree-sha1 = "897b9d17527039dd86ca882603c3af2ea0c0aada"
+lazy = true
+
+    [["pd_nc_sr_pbe_standard_0.4.1_upf".download]]
+    sha256 = "1ee2aec5d651012557ebcfcd33d7a3192e4789b1c49af1bd846a6f7c6a032f84"
+    url = "https://github.com/JuliaMolSim/PseudoLibrary/raw/main/artifacts/pd_nc_sr_pbe_standard_0.4.1_upf.tar.gz"
