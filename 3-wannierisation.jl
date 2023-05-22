@@ -32,6 +32,10 @@ begin
 	using Unitful
 	using UnitfulAtomic
 	using Wannier
+	# wrap plot function so it works in Pluto notebook
+	using WannierPlots: plot_band_diff as wanplotdiff
+	using PlutoPlotly
+	plot_band_diff(args...; kwargs...) = PlutoPlotly.plot(wanplotdiff(args...; kwargs...).plot)
 end
 
 # ╔═╡ b0e511c4-1fbc-42b5-9a25-030a28fe022f
@@ -118,9 +122,35 @@ wann_model = only(
 
 # ╔═╡ c5b2f3ac-02f8-4363-a925-32c132a1a0e2
 md"""
-!!! danger "TODO Visualisation"
-    Currently WannierPlots is still private ...
+Now let's use Wannier functions to interpolate band structures, and compare with DFTK bands.
+
+We first construct a `Wannier.InterpModel` specifically for Wannier interpolations. Then interpolate band structures using `Wannier.interpolate`, which returns a `Brillouin.KPathInterpolant` storing the kpoint coordinates on a kpath, and a matrix that contains eigenvalues.
 """
+
+# ╔═╡ 29a426dd-34dd-4463-943d-1f01554cdc6e
+begin
+	interp_model = Wannier.InterpModel(wann_model)
+	kpi, bands_wann = Wannier.interpolate(interp_model)
+end
+
+# ╔═╡ aef8f91e-ff76-4420-8103-03b1a59f8403
+md"""We also compute again the DFTK eigenvalues on the same kpath.
+
+For now the `Wannier.interpolate` returns eigenvalues as a matrix in `eV` unit, so we convert DFTK eigenvalues into the same unit.
+"""
+
+# ╔═╡ d0681c71-c653-4c2c-8124-a92ff5c1f03f
+begin
+	bandsres = DFTK.compute_bands(scfres.basis, kpi; scfres.ρ)
+	bands_dftk = ustrip.(u"eV", hcat(bandsres.λ...) * u"hartree")
+	fermi_energy = ustrip(u"eV", scfres.εF * u"hartree")
+end
+
+# ╔═╡ 6b52a42c-c21c-4161-8aaf-c5a0983d7e09
+md"""Finally plot band comparison"""
+
+# ╔═╡ d2ba1b6b-e51c-4779-8dae-c6e390f2adfa
+plot_band_diff(kpi, bands_dftk, bands_wann; fermi_energy)
 
 # ╔═╡ Cell order:
 # ╠═2bc86db6-f71a-11ed-1da5-fde04331397a
@@ -132,3 +162,8 @@ md"""
 # ╠═89498877-ad4c-4d80-9661-54bf2ffafc4c
 # ╠═5983120f-9b88-4795-b469-0752c7773efd
 # ╟─c5b2f3ac-02f8-4363-a925-32c132a1a0e2
+# ╠═29a426dd-34dd-4463-943d-1f01554cdc6e
+# ╟─aef8f91e-ff76-4420-8103-03b1a59f8403
+# ╠═d0681c71-c653-4c2c-8124-a92ff5c1f03f
+# ╟─6b52a42c-c21c-4161-8aaf-c5a0983d7e09
+# ╠═d2ba1b6b-e51c-4779-8dae-c6e390f2adfa
