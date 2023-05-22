@@ -1,7 +1,7 @@
 # Julia for Materials Modelling
 
 This repository contains the Pluto notebooks of the presentation
-**Julia for Materials Modelling**, originally held on the 22nd May
+**Julia for Materials Modelling**, originally held on the 22nd May 2023
 at EPFL (see [this memento](https://memento.epfl.ch/event/julia-for-materials-modelling-2/)
 for more details).
 
