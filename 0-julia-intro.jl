@@ -64,9 +64,11 @@ md"""
 
 # ╔═╡ b3c5bc68-c92e-4e35-a94f-5b18163b2f8f
 md"""
-!!! danger "Materials"
-	You will find the materials for this talk on
-    [github.com/mfherbst/julia-for-materials](https://github.com/mfherbst/julia-for-materials)
+!!! danger "Presentation materials"
+    The content of this talk is also available as a static website on
+    [https://mfherbst.github.io/julia-for-materials/](https://mfherbst.github.io/julia-for-materials/)
+    or in as interactive Pluto notebooks on
+    [github.com/mfherbst/julia-for-materials](https://github.com/mfherbst/julia-for-materials).
 """
 
 # ╔═╡ 3948dd91-dc26-4531-ba4d-2a8955add0b6

@@ -39,7 +39,7 @@ md"# Atomistic modelling ecosystem (1/4)"
 md"""
 ## JuliaMolSim
 
-[**JuliaMolSim**](https://juliamolsim.github.io/) is a github organisation, which clusters quite a few activities related to atomistic modelling for molecules and solids. Currently about 20 researchers scattered around the world (Canada, France, US, UK, Switzerland, ...) are active in JuliaMolSim. Moreover pretty much all packages presented in these notebooks have a direct or indirect relation to JuliaMolSim. 
+The [**JuliaMolSim**](https://juliamolsim.github.io/) github organisation clusters a few activities related to atomistic modelling for molecules and solids. Currently about 20 researchers scattered around the world (Canada, France, US, UK, Switzerland, ...) are active in JuliaMolSim. Moreover pretty much all packages presented in these notebooks have a direct or indirect relation to JuliaMolSim. 
 
 In the past few JuliaCons members of JuliaMolSim have been directly involved in organising discussion sessions or minisymposia related to materials or atomistic modelling. 
 
