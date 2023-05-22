@@ -1932,7 +1932,7 @@ version = "0.1.0"
 deps = ["Brillouin", "GeometryBasics", "LinearAlgebra", "Makie", "Meshing", "PeriodicTable", "PlotlyJS", "Reexport", "StaticArrays", "StatsBase", "Wannier"]
 git-tree-sha1 = "d8d60e233faa249f3d6ee58c6447c9277128f663"
 repo-rev = "main"
-repo-url = "/home/jqiao/git/WannierPlots.jl"
+repo-url = "https://github.com/qiaojunfeng/WannierPlots.jl"
 uuid = "aee37571-e66d-4c92-9c5d-c978af507da2"
 version = "0.1.0"
 

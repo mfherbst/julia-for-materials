@@ -27,15 +27,13 @@ begin
 	using LazyArtifacts
 	using DFTK
 	using PlutoUI
+	using PlutoPlotly
 	using Plots
 	using SpecialFunctions
 	using Unitful
 	using UnitfulAtomic
 	using Wannier
-	# wrap plot function so it works in Pluto notebook
-	using WannierPlots: plot_band_diff as wanplotdiff
-	using PlutoPlotly
-	plot_band_diff(args...; kwargs...) = PlutoPlotly.plot(wanplotdiff(args...; kwargs...).plot)
+	import WannierPlots
 end
 
 # ╔═╡ b0e511c4-1fbc-42b5-9a25-030a28fe022f
@@ -124,33 +122,40 @@ wann_model = only(
 md"""
 Now let's use Wannier functions to interpolate band structures, and compare with DFTK bands.
 
-We first construct a `Wannier.InterpModel` specifically for Wannier interpolations. Then interpolate band structures using `Wannier.interpolate`, which returns a `Brillouin.KPathInterpolant` storing the kpoint coordinates on a kpath, and a matrix that contains eigenvalues.
+We first construct a `Wannier.InterpModel` specifically for Wannier interpolations. This lets us interpolate band structures using `Wannier.interpolate`, which returns a `Brillouin.KPathInterpolant` storing the kpoint coordinates on a kpath, and a matrix that contains eigenvalues.
 """
 
 # ╔═╡ 29a426dd-34dd-4463-943d-1f01554cdc6e
 begin
 	interp_model = Wannier.InterpModel(wann_model)
-	kpi, bands_wann = Wannier.interpolate(interp_model)
+	kinter, bands_wann = Wannier.interpolate(interp_model)
 end
 
 # ╔═╡ aef8f91e-ff76-4420-8103-03b1a59f8403
-md"""We also compute again the DFTK eigenvalues on the same kpath.
-
-For now the `Wannier.interpolate` returns eigenvalues as a matrix in `eV` unit, so we convert DFTK eigenvalues into the same unit.
+md"""
+The `Brillouin.KPathInterpolant` is also understood by DFTK, which we can leverage to compute the exact DFT band energies.
 """
 
-# ╔═╡ d0681c71-c653-4c2c-8124-a92ff5c1f03f
-begin
-	bandsres = DFTK.compute_bands(scfres.basis, kpi; scfres.ρ)
-	bands_dftk = ustrip.(u"eV", hcat(bandsres.λ...) * u"hartree")
-	fermi_energy = ustrip(u"eV", scfres.εF * u"hartree")
-end
+# ╔═╡ 704fa624-ffd8-431b-a6cb-e2f41fce0e9b
+dftk_bands = DFTK.compute_bands(scfres.basis, kinter; scfres.ρ);
 
-# ╔═╡ 6b52a42c-c21c-4161-8aaf-c5a0983d7e09
-md"""Finally plot band comparison"""
+# ╔═╡ a5250227-de3a-4f80-b114-45633107dbe5
+md"""
+Since DFTK uses atomic units, but `Wannier.interpolate` is hard-coded to electron volts, we also convert the DFTK data to `eV` and finally compare the two band structures.
+"""
+
+# ╔═╡ e02c8fc7-fb01-460d-a3b8-23c2045f6666
+begin
+	to_eV(x)     = ustrip(auconvert(u"eV", x))
+	bands_dftk   = to_eV.(hcat(dftk_bands.λ...))
+	fermi_energy = to_eV(scfres.εF)
+end;
 
 # ╔═╡ d2ba1b6b-e51c-4779-8dae-c6e390f2adfa
-plot_band_diff(kpi, bands_dftk, bands_wann; fermi_energy)
+# wrap plot function so it works in Pluto notebook
+PlutoPlot(
+	WannierPlots.plot_band_diff(kinter, bands_dftk, bands_wann; fermi_energy).plot
+)
 
 # ╔═╡ Cell order:
 # ╠═2bc86db6-f71a-11ed-1da5-fde04331397a
@@ -164,6 +169,7 @@ plot_band_diff(kpi, bands_dftk, bands_wann; fermi_energy)
 # ╟─c5b2f3ac-02f8-4363-a925-32c132a1a0e2
 # ╠═29a426dd-34dd-4463-943d-1f01554cdc6e
 # ╟─aef8f91e-ff76-4420-8103-03b1a59f8403
-# ╠═d0681c71-c653-4c2c-8124-a92ff5c1f03f
-# ╟─6b52a42c-c21c-4161-8aaf-c5a0983d7e09
+# ╠═704fa624-ffd8-431b-a6cb-e2f41fce0e9b
+# ╟─a5250227-de3a-4f80-b114-45633107dbe5
+# ╠═e02c8fc7-fb01-460d-a3b8-23c2045f6666
 # ╠═d2ba1b6b-e51c-4779-8dae-c6e390f2adfa
