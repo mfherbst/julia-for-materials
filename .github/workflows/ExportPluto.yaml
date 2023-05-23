@@ -26,16 +26,6 @@ jobs:
             - name: Install GL
               run: sudo apt-get update && sudo apt-get install -y xorg-dev mesa-utils xvfb libgl1 freeglut3-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev
 
-            # Stuff we need to get the ACEsuit working
-            - name: Install ASE
-              run: |
-                julia -e '
-                  using Pkg
-                  Pkg.add("PyCall")
-                  using PyCall
-                  run(`$(PyCall.python) -m pip install ase`)
-                '
-
             - name: Install Julia
               uses: julia-actions/setup-julia@v1
               with:
@@ -57,6 +47,16 @@ jobs:
 
             - name: Add ACEsuit registry
               run:  julia -e 'using Pkg;  Pkg.Registry.add(RegistrySpec(url="https://github.com/ACEsuit/ACEregistry"))'
+
+            # Stuff we need to get the ACEsuit working
+            - name: Install ASE
+              run: |
+                julia -e '
+                  using Pkg
+                  Pkg.add("PyCall")
+                  using PyCall
+                  run(`$(PyCall.python) -m pip install ase`)
+                '
 
             - name: Run & export Pluto notebooks
               run: |

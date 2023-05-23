@@ -3,7 +3,7 @@
 [![](https://img.shields.io/badge/website-static-blue.svg)](https://mfherbst.github.io/julia-for-materials/)
 
 This repository contains the Pluto notebooks of the presentation
-**Julia for Materials Modelling**, originally held on the 22nd May 2023
+**Julia for Materials Modelling**, originally held on the 24th May 2023
 at EPFL (see [this memento](https://memento.epfl.ch/event/julia-for-materials-modelling-2/)
 for more details).
 
