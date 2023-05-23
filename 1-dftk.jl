@@ -134,7 +134,10 @@ let
 	model   = model_PBE(silicon)
 
 	if has_cuda()
-		basis = PlaneWaveBasis(model; Ecut=30, kgrid=(5, 5, 5), architecture=DFTK.GPU(CuArray))
+		basis = PlaneWaveBasis(model;
+		    Ecut=30, kgrid=(5, 5, 5),
+		    architecture=DFTK.GPU(CuArray)
+		)
 
 		self_consistent_field(basis; tol=1e-2, solver=scf_damping_solver())
 	end
@@ -145,7 +148,7 @@ md"This was done by a Physics Bachelor student in **10 weeks**. Performance opti
 
 # ╔═╡ be373376-7ad5-42d2-8510-854216f22b07
 md"""
-### Algorthmic differentiation
+### Algorithmic differentiation
 
 Consider elastic strain engineering. We are (roughly) interested in the question:
 

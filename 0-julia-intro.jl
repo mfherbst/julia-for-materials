@@ -418,7 +418,7 @@ end
 
 # ╔═╡ f0fdd605-6f29-4f5b-b9bd-d03554273854
 md"""
-But that's not real Python, that's C in disguise.
+But numpy is not real Python, **that's C in disguise**.
 The naive version (like the one we wrote in Julia) would look something like this:
 """
 
@@ -453,6 +453,9 @@ let
 	end
 end
 
+# ╔═╡ 74b4e0e0-bae5-48e0-9746-f77a70988015
+md"**Conclusion:** Julia is on the same speed level as C."
+
 # ╔═╡ 8c4d9da1-62ca-4d57-9583-59341ab06d52
 md"""
 ## Composable software from generic code
@@ -474,10 +477,11 @@ But unlike a C implementation, we are not at all restricted to using a particula
 # ╔═╡ e2d26a9d-be50-49d9-870f-d709cccadcbb
 md"""
 (a) **Elevated precision** ... let's consider a nasty case:
+
+Some numbers designed to **sum to 1**:
 """
 
 # ╔═╡ af10e42c-bd61-4acd-ba80-0798c3fbbd3b
-# A vector that sums to one by construction
 function generate(N)
     x = randn(N) .* exp.(10 .* randn(N))
     x = [x; -x; 1.0]
@@ -568,6 +572,9 @@ The authors of Measurements.jl and DifferentialEquations.jl never had any collab
 
 It **just works**.
 """
+
+# ╔═╡ 90a6efec-b2f0-4220-8927-c5810f80e0f0
+md"**Conclusion:** Julia's language design gives enormous flexibility with little effort."
 
 # ╔═╡ 5665c6e6-68de-4811-bcf2-695710362421
 md"""## Powerful HPC abstractions"""
@@ -2846,7 +2853,7 @@ version = "1.4.1+0"
 # ╟─79995a06-14d4-44a8-89c1-5c66286d0e0a
 # ╟─c6271577-8ea0-487a-9cf4-116dc3c6d962
 # ╟─8b838733-2ec0-42f0-9dab-48bb24514173
-# ╠═6731e40b-4e51-46de-ae45-c9929b476059
+# ╟─6731e40b-4e51-46de-ae45-c9929b476059
 # ╠═a81c1305-c953-43fd-8057-c7afbb25d6e6
 # ╠═1501bc67-642a-48bc-b355-e6513d379682
 # ╠═049f14d5-18e3-4493-b618-03a42fffe35d
@@ -2903,6 +2910,7 @@ version = "1.4.1+0"
 # ╠═2f095034-9e3d-4f27-97f4-96cbeadbe681
 # ╟─0f6c85be-7d32-4e0c-b085-a04227570a46
 # ╠═b6a35fc7-c2f9-4d39-baf8-10d8a94996d6
+# ╟─74b4e0e0-bae5-48e0-9746-f77a70988015
 # ╟─8c4d9da1-62ca-4d57-9583-59341ab06d52
 # ╠═6340a213-17dc-4b8e-8848-8bc50aa620fa
 # ╟─e2d26a9d-be50-49d9-870f-d709cccadcbb
@@ -2923,6 +2931,7 @@ version = "1.4.1+0"
 # ╠═a99231cd-0e8b-48ee-be0e-0613933afe7f
 # ╟─9d639f9d-9396-4db3-9c14-45ace90883aa
 # ╟─3f3566f9-ec2b-4aa2-9e7e-3f61e37af8d6
+# ╟─90a6efec-b2f0-4220-8927-c5810f80e0f0
 # ╟─5665c6e6-68de-4811-bcf2-695710362421
 # ╟─896e240a-ad02-42f3-a76e-a9615df1f2e4
 # ╠═01dd3582-349c-4613-9768-869d09168e4f
